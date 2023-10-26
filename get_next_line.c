@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 10:44:45 by JFikents          #+#    #+#             */
-/*   Updated: 2023/10/18 15:08:46 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:25:25 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 	char	*line;
 	int		size;
 
-	size = get_line_size(fd) + 1;
+	size = get_line_size(fd) + 2;
 	if (fd < 0 || !size)
 		return (0);
 	line = malloc(size * sizeof(char));
