@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:34:54 by JFikents          #+#    #+#             */
-/*   Updated: 2023/10/18 12:48:21 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:06:46 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,17 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <stdio.h>
 
-char	*get_next_line(int fd);
-int		get_line_size(int fd);
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+char			*get_next_line(int fd);
+void			*ft_calloc(unsigned long count, unsigned long size);
+char			*ft_strchr(char *src, int c);
+unsigned long	ft_strlen(const char *str);
+char			*ft_handle_nl(char *line);
+
 #endif
