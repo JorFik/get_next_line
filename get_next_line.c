@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:05:50 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/08 22:00:55 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/08 23:45:10 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,5 @@ char	*get_next_line(int fd)
 	size = 0;
 	return (line);
 }
+
+// static char * guardar char no usados para devolverlos despues
