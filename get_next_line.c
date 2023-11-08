@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:05:50 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/08 15:47:20 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:00:55 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ char	*get_next_line(int fd)
 		return (NULL);
 	read_succesful = read(fd, pre_line, BUFFER_SIZE);
 	if (read_succesful == -1 || (!read_succesful && size == BUFFER_SIZE))
+	{
 		free(pre_line);
-	if (read_succesful == -1 || (!read_succesful && size == BUFFER_SIZE))
+		size = 0;
 		return (NULL);
+	}
 	if (ft_handle_nl(pre_line) || !read_succesful)
 		line = pre_line;
 	else
