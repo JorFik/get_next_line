@@ -6,7 +6,7 @@
 #    By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 21:57:25 by JFikents          #+#    #+#              #
-#    Updated: 2023/11/08 23:08:34 by JFikents         ###   ########.fr        #
+#    Updated: 2023/11/10 19:31:59 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ DEBUGGER = debugger/
 
 NAME = 
 MAIN = main.c
+TEST = test.c
 H_FILE = get_next_line.h
 C_FILES = get_next_line.c get_next_line_utils.c
 
@@ -45,6 +46,13 @@ re: fclean all
 
 debug: c
 	@$(CC) $(ADD) $(CCFLAGS) $(H_FILE) $(C_FILES) $(MAIN)
+	@mv a.out.dSYM $(DEBUGGER)
+	@mv a.out $(DEBUGGER)
+	@mv *.gch $(DEBUGGER)
+	@make fclean
+
+test: c
+	@$(CC) $(ADD) $(CCFLAGS) $(H_FILE) $(TEST)
 	@mv a.out.dSYM $(DEBUGGER)
 	@mv a.out $(DEBUGGER)
 	@mv *.gch $(DEBUGGER)

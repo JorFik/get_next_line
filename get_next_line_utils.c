@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:48:02 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/08 23:29:58 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/10 04:43:20 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ unsigned long	ft_strlen(const char *str)
 	int	counter;
 
 	counter = 0;
-	while (*(str + counter) != '\0')
-		counter ++;
+	if (str)
+	{
+		while (*(str + counter) != '\0')
+			counter ++;
+	}
 	return (counter);
 }
 
@@ -54,16 +57,36 @@ char	*ft_strchr(char *src, int c)
 		return (0);
 }
 
-char	*ft_handle_nl(char *line)
+char	*ft_handle_nl(char *pre_line, char *last_read, int check_read)
 {
-	char	*nl;
-	int		i_nl;
+	char	*new_line;
+	int		nl_i;
+	int		i;
 
-	nl = ft_strchr(line, '\n');
-	if (!nl)
+	nl_i = 1;
+	i = 0;
+	new_line = ft_strchr(pre_line, '\n');
+	if (!new_line && check_read)
 		return (NULL);
-	i_nl = nl - line + 1;
-	while (line[i_nl])
-		line[i_nl++] = 0;
-	return (line);
+	while (check_read && new_line[nl_i])
+	{
+		last_read[i ++] = new_line[nl_i];
+		new_line[nl_i ++] = 0;
+	}
+	i = 0;
+	nl_i = 0;
+	if (pre_line[i])
+		new_line = ft_calloc(ft_strlen(pre_line) + 1, sizeof(char));
+	if (!new_line)
+		return (NULL);
+	while (pre_line[i])
+		new_line[nl_i ++] = pre_line[i ++];
+	return (new_line);
 }
+
+	// nl = ft_strchr(line, '\n');
+	// if (!nl)
+	// 	return (NULL);
+	// while (*(++ nl))
+	// 	*nl = 0;
+	// return (line);
