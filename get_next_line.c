@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:05:50 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/11 19:33:24 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/11 21:30:21 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*ft_addfront(char *pre, char *mid, char *pos)
 	new = ft_calloc(ft_strlen(pos)
 			+ ft_strlen(pre) + ft_strlen(mid) + 1, sizeof(char));
 	if (!new)
-		return (NULL);
+		return ((void *)ft_back2zero(&mid, &pos, &pre, NULL));
 	while (pre[i])
 		new[n_i++] = pre[i++];
 	i = 0;
@@ -103,7 +103,7 @@ static char	*ft_check_last_read(char *last_read, char *line)
 	line = ft_calloc(new_line - last_read + 2, sizeof(char));
 	ft_back2zero(&tmp, NULL, NULL, NULL);
 	if (!line)
-		return (NULL);
+		return ((void *)ft_back2zero(&line, NULL, NULL, NULL));
 	while (last_read[lr_i] != '\n')
 		line[i ++] = last_read[lr_i ++];
 	line[i] = last_read[lr_i ++];
@@ -129,7 +129,7 @@ char	*get_next_line(int fd)
 	check_read = read(fd, tmp_line, BUFFER_SIZE);
 	line = ft_handle_nl(tmp_line, last_read, check_read);
 	if ((check_read < 1 && !*pre_line) || check_read == -1)
-		return ((void *)ft_back2zero(&pre_line, &tmp_line, NULL, last_read));
+		return ((void *)ft_back2zero(&pre_line, &tmp_line, &line, last_read));
 	else if (line || !check_read)
 	{
 		line = ft_addfront(pre_line, line, NULL);
@@ -140,6 +140,6 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// *Los saque por las lineas
 	// if (!pre_line || !tmp_line)
-	// 	return ((void *)(0));
+	// 	return ((void *)(ft_back2zero(&pre_line, &tmp_line, NULL, NULL)));
+// *Los saque por las lineas
