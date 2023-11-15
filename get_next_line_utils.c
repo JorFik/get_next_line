@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:48:02 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/11 00:03:56 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:05:13 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,19 @@ char	*ft_handle_nl(char *pre_line, char *last_read, int check_read)
 	while (pre_line[i])
 		new_line[nl_i ++] = pre_line[i ++];
 	return (new_line);
+}
+
+void	ft_init_lines(char *pre, char *tmp)
+{
+	int	i;
+
+	i = 0;
+	while (i <= BUFFER_SIZE)
+	{
+		pre[i] = 0;
+		tmp[i] = 0;
+		i ++;
+	}
 }
 
 	// nl = ft_strchr(line, '\n');

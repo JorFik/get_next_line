@@ -6,7 +6,7 @@
 #    By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 21:57:25 by JFikents          #+#    #+#              #
-#    Updated: 2023/11/10 19:31:59 by JFikents         ###   ########.fr        #
+#    Updated: 2023/11/15 21:33:00 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,16 @@ DEBUGGER = debugger/
 NAME = 
 MAIN = main.c
 TEST = test.c
-H_FILE = get_next_line.h
-C_FILES = get_next_line.c get_next_line_utils.c
+H_FILE = get_next_line.h get_next_line_bonus.h
+C_FILES = get_next_line_bonus.c \
+get_next_line_utils_bonus.c
+# get_next_line.c get_next_line_utils.c
 
 .PHONY: clean fclean re all c
 
 all: $(NAME)
 
-# bonus: all
+bonus: all
 
 $(NAME) : $(OBJ+)
 	@$(LIB) $(NAME) $(OBJ+)

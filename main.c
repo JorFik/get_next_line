@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 15:35:00 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/11 19:14:06 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:34:55 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(void)
 	int		fd;
 	char	*temp;
 
-	fd = open("files/nl", O_RDONLY);
+	fd = open("files/big_line_with_nl", O_RDONLY);
 	printf("	1;	%s	", get_next_line(fd));
 	printf("2;	%s	", get_next_line(fd));
 	if (BUFFER_SIZE > 100)
@@ -41,9 +41,7 @@ printf("8;	%s	", get_next_line(fd));
 // * 1 * should be aaaa
 // * 2 * should be b
 // * 3 * should be NULL
-// ! WRONG
 // * 4 * should be a
-// ! WRONG
 // * 5 * should be b
 // * 6 * should be c
 // * 7 * should be d
