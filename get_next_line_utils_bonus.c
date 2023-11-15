@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:48:02 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/11 00:03:56 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:21:30 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
+
+long	ft_back2zero(char **pos, char *last_read)
+{
+	int	i;
+
+	i = 0;
+	while (last_read && i <= BUFFER_SIZE)
+		last_read[i++] = 0;
+	if (pos && *pos)
+	{
+		free(*pos);
+		*pos = NULL;
+	}
+	return (0);
+}
 
 unsigned long	ft_strlen(const char *str)
 {
@@ -83,10 +98,3 @@ char	*ft_handle_nl(char *pre_line, char *last_read, int check_read)
 		new_line[nl_i ++] = pre_line[i ++];
 	return (new_line);
 }
-
-	// nl = ft_strchr(line, '\n');
-	// if (!nl)
-	// 	return (NULL);
-	// while (*(++ nl))
-	// 	*nl = 0;
-	// return (line);

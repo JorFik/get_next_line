@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:05:50 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/11 21:30:21 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:51:39 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*ft_addfront(char *pre, char *mid, char *pos)
 	new = ft_calloc(ft_strlen(pos)
 			+ ft_strlen(pre) + ft_strlen(mid) + 1, sizeof(char));
 	if (!new)
-		return ((void *)ft_back2zero(&mid, &pos, &pre, NULL));
+		return ((void *)ft_back2zero(&pos, NULL));
 	while (pre[i])
 		new[n_i++] = pre[i++];
 	i = 0;
@@ -32,28 +32,17 @@ static char	*ft_addfront(char *pre, char *mid, char *pos)
 	i = 0;
 	while (pos && pos[i])
 		new[n_i++] = pos[i++];
-	ft_back2zero(&mid, &pos, &pre, NULL);
+	ft_back2zero(&pos, NULL);
 	return (new);
 }
 
-long	ft_back2zero(char **pre_line, char **tmp,
-	char **pos, char *last_read)
+long	ft_back2zero(char **pos, char *last_read)
 {
 	int	i;
 
 	i = 0;
 	while (last_read && i <= BUFFER_SIZE)
 		last_read[i++] = 0;
-	if (pre_line && *pre_line)
-	{
-		free(*pre_line);
-		*pre_line = NULL;
-	}
-	if (tmp && *tmp)
-	{
-		free(*tmp);
-		*tmp = NULL;
-	}
 	if (pos && *pos)
 	{
 		free(*pos);
@@ -85,7 +74,6 @@ static void	ft_erease_front(int lr_i, char *last_read)
 static char	*ft_check_last_read(char *last_read, char *line)
 {
 	char	*new_line;
-	char	*tmp;
 	int		i;
 	int		lr_i;
 
@@ -99,11 +87,9 @@ static char	*ft_check_last_read(char *last_read, char *line)
 		ft_erease_front(lr_i, last_read);
 		return (line);
 	}
-	tmp = line;
 	line = ft_calloc(new_line - last_read + 2, sizeof(char));
-	ft_back2zero(&tmp, NULL, NULL, NULL);
 	if (!line)
-		return ((void *)ft_back2zero(&line, NULL, NULL, NULL));
+		return ((void *) 0);
 	while (last_read[lr_i] != '\n')
 		line[i ++] = last_read[lr_i ++];
 	line[i] = last_read[lr_i ++];
@@ -114,32 +100,20 @@ static char	*ft_check_last_read(char *last_read, char *line)
 char	*get_next_line(int fd)
 {
 	static char	last_read[BUFFER_SIZE + 1];
-	char		*line;
-	char		*pre_line;
-	char		*tmp_line;
+	t_lines		line;
 	int			check_read;
 
-	pre_line = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	tmp_line = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	line = ft_check_last_read(last_read, pre_line);
-	if (line != pre_line)
-		ft_back2zero(NULL, &tmp_line, NULL, NULL);
-	if (line != pre_line)
-		return (line);
-	check_read = read(fd, tmp_line, BUFFER_SIZE);
-	line = ft_handle_nl(tmp_line, last_read, check_read);
-	if ((check_read < 1 && !*pre_line) || check_read == -1)
-		return ((void *)ft_back2zero(&pre_line, &tmp_line, &line, last_read));
-	else if (line || !check_read)
-	{
-		line = ft_addfront(pre_line, line, NULL);
-		ft_back2zero(&tmp_line, NULL, NULL, NULL);
-	}
+	ft_init_lines(line.pre, line.tmp);
+	line.line = ft_check_last_read(last_read, line.pre);
+	if (line.line != line.pre)
+		return (line.line);
+	check_read = read(fd, line.tmp, BUFFER_SIZE);
+	line.line = ft_handle_nl(line.tmp, last_read, check_read);
+	if ((check_read < 1 && !*line.pre) || check_read == -1)
+		return ((void *)ft_back2zero(&line.line, last_read));
+	else if (line.line || !check_read)
+		line.line = ft_addfront(line.pre, NULL, line.line);
 	else
-		line = ft_addfront(pre_line, tmp_line, get_next_line(fd));
-	return (line);
+		line.line = ft_addfront(line.pre, line.tmp, get_next_line(fd));
+	return (line.line);
 }
-
-	// if (!pre_line || !tmp_line)
-	// 	return ((void *)(ft_back2zero(&pre_line, &tmp_line, NULL, NULL)));
-// *Los saque por las lineas
